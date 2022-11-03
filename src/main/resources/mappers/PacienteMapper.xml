@@ -21,4 +21,17 @@
         FROM
             PACIENTES as p
     </select>
+
+    <select id="getPacienteByIDandTypeID" resultMap="PacienteResult" parameterType="Paciente">
+        SELECT
+            p.id,
+            p.tipo_id,
+            p.fecha_nacimiento,
+            p.nombre
+        FROM
+            PACIENTES as p
+        <if test="Paciente != null">
+            WHERE p.id = #{id} AND p.tipo_id = #{tipo_id}
+        </if>
+    </select>
 </mapper>
