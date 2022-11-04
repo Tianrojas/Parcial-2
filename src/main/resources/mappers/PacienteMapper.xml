@@ -22,16 +22,11 @@
             PACIENTES as p
     </select>
 
-    <select id="getPacienteByIDandTypeID" resultMap="PacienteResult" parameterType="Paciente">
-        SELECT
-            p.id,
-            p.tipo_id,
-            p.fecha_nacimiento,
-            p.nombre
-        FROM
-            PACIENTES as p
-        <if test="Paciente != null">
-            WHERE p.id = #{id} AND p.tipo_id = #{tipo_id}
-        </if>
+    <select id="getPacienteByIDandTypeID" resultMap="PacienteResult">
+        SELECT p.id, p.tipo_id, p.nombre, p.fecha_nacimiento, co.idCONSULTAS as co_id,
+            co.fecha_y_hora as co_fecha_y_hora,
+            co.resumen as co_resumen, co.PACIENTES_id as co_PACIENTE_id, co.PACIENTES_tipo_id as co_PACIENTES_tipo_id
+        FROM PACIENTES as p JOIN CONSULTAS as co ON p.id = co.PACIENTES_id
+        WHERE (p.id = #{id}) AND (p.tipo_id = #{tipo_id})
     </select>
 </mapper>
