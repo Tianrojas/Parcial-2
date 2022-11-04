@@ -27,6 +27,6 @@
             co.fecha_y_hora as co_fecha_y_hora,
             co.resumen as co_resumen, co.PACIENTES_id as co_PACIENTE_id, co.PACIENTES_tipo_id as co_PACIENTES_tipo_id
         FROM PACIENTES as p JOIN CONSULTAS as co ON p.id = co.PACIENTES_id
-        WHERE (p.id = #{id}) AND (p.tipo_id = #{tipo_id})
+        WHERE (p.id = #{id}) AND (p.tipo_id = #{tiposIdentificacion})
     </select>
 </mapper>

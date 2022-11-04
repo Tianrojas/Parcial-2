@@ -49,6 +49,14 @@ public class PacientesBean extends BasePageBean{
         this.enfermo = enfermo;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     TipoIdentificacion tipoIdentificacion = TipoIdentificacion.CC;
 
     public void setTipoIdentificacion(TipoIdentificacion tipoIdentificacion) {
@@ -62,6 +70,7 @@ public class PacientesBean extends BasePageBean{
     public void getData() throws Exception {
         try {
             setEnfermo(serviciosPaciente.consultarPacientesPorId(id, tipoIdentificacion));
+            System.out.println(enfermo.getNombre());
         } catch (ExcepcionServiciosSuscripciones ex) {
             throw ex;
         }
@@ -70,5 +79,5 @@ public class PacientesBean extends BasePageBean{
     public TipoIdentificacion[] getTiposIdentificacion() {
         return TipoIdentificacion.values();
     }
-    
+
 }

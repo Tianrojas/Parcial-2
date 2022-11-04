@@ -17,9 +17,7 @@
                 <f:selectItems value="#{mb.tiposIdentificacion}" />
             </p:selectOneMenu>
             <!--Por favor no cambiar el 'value':-->
-            <p:commandButton value="Consultar"  actionListener="#{mb.getData()}" update="pacientes">
-
-            </p:commandButton>
+            <p:commandButton value="Consultar" actionListener="#{mb.getData}" update="pacientes"> </p:commandButton>
             <br> </br>
             <p:outputLabel  value= "Nombre : #{mb.enfermo.getNombre()}"/>
             <br> </br>
