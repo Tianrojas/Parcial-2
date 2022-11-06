@@ -65,7 +65,7 @@ junto con los datos que da la consulta1 , se agregan las columnas con sus respec
 <img width="625" alt="image" src="https://user-images.githubusercontent.com/98657146/200154969-2109df6a-669f-405e-8ea6-eca4e2f77535.png">
 
 ### Para la historia de usuario2:  
-junto con los datos que da la consulta2 , se agregan las columnas con sus respectivos valores, los titulos y todo lo visual que tiene la pagina 
+junto con los datos que da la consulta2 , se agregan las columnas con sus respectivos valores, los titulos y todo lo visual que tiene la pagina  
 <img width="617" alt="image" src="https://user-images.githubusercontent.com/98657146/200155006-b654ece3-41b7-4f8b-8fdf-ff4a16d2c66e.png">
 
 Por ultimo probamos cada consulta con la url de localhost 
