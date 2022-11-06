@@ -15,18 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package edu.eci.pdsw.samples.entities;
+
 import java.sql.Date;
 
 /**
+ *
  * @author hcadavid
  */
 public class Consulta {
     //el identificador es asignado por la base de datos,
     //por eso no se incluye en el constructor.
     private int id;
+    
     private Date fechayHora;
     private String resumen;
 
+    
     
     public Consulta(Date fechayHora, String resumen) {
         this.id=-1;
@@ -65,6 +69,13 @@ public class Consulta {
     public String toString() {
         return "Consulta { id: "+id+", fechayHora: "+fechayHora+", resumen: "+resumen+" }";
     }
-    
-    
+
+    @Override
+    public boolean equals(Object p){
+        return this.equals((Consulta) p);
+    }
+
+    private boolean equals(Consulta p){
+        return this.id == p.id && this.fechayHora.equals(p.fechayHora) && this.resumen.equals(p.resumen);
+    }
 }

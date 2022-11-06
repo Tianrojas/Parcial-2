@@ -17,10 +17,7 @@
 package edu.eci.pdsw.samples.entities;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -41,6 +38,14 @@ public class Paciente {
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
         consultas=new ArrayList<>();
+    }
+
+    public Paciente(int id, TipoIdentificacion tipo_id, String nombre, Date fechaNacimiento, List<Consulta> consultas) {
+        this.id = id;
+        this.tipo_id = tipo_id;
+        this.nombre = nombre;
+        this.fechaNacimiento = fechaNacimiento;
+        this.consultas= consultas;
     }
 
     public Paciente() {
@@ -96,7 +101,17 @@ public class Paciente {
         rep.append("]");
         return rep.toString();
     }
-    
+
+    @Override
+    public boolean equals(Object p){
+        return this.equals((Paciente) p);
+    }
+
+    private boolean equals(Paciente p){
+        boolean sameAttributes = this.id == p.id && this.nombre.equals(p.nombre) && this.tipo_id == p.tipo_id && this.fechaNacimiento.equals(p.fechaNacimiento);
+        boolean sameConsultas = this.getConsultas().equals(p.consultas);
+        return sameConsultas && sameAttributes;
+    }
     
     
 }

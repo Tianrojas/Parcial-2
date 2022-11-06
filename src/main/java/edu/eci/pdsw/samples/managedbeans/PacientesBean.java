@@ -16,15 +16,12 @@
  */
 package edu.eci.pdsw.samples.managedbeans;
 
-import com.google.inject.Inject;
 import edu.eci.pdsw.samples.entities.Paciente;
 import edu.eci.pdsw.samples.entities.TipoIdentificacion;
-import edu.eci.pdsw.samples.services.ExcepcionServiciosSuscripciones;
-import edu.eci.pdsw.samples.services.ServiciosPaciente;
 import edu.eci.pdsw.samples.services.ServiciosPacientesFactory;
+
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 /**
@@ -33,31 +30,28 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "mb")
 @SessionScoped
-public class PacientesBean extends BasePageBean{
+public class PacientesBean {
 
-    @Inject
-    private ServiciosPaciente serviciosPaciente;
+    TipoIdentificacion tipoIdentificacion;
+    Paciente selectedPaciente;
 
-    private Paciente enfermo;
-    private int id;
+    List<Paciente> menoresContagiados;
 
-    public Paciente getEnfermo() {
-        return enfermo;
+    public List<Paciente> getMenoresEnfermos() {
+        return menoresContagiados;
     }
 
-    public void setEnfermo(Paciente enfermo) {
-        this.enfermo = enfermo;
+    public void loadEnfermos(){
+        try {
+            menoresContagiados = ServiciosPacientesFactory.getInstance().getForumsServices().consultarMenoresEnfermos();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    public int getId() {
-        return id;
+    public Paciente getSelectedPaciente() {
+        return selectedPaciente;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    TipoIdentificacion tipoIdentificacion = TipoIdentificacion.CC;
 
     public void setTipoIdentificacion(TipoIdentificacion tipoIdentificacion) {
         this.tipoIdentificacion = tipoIdentificacion;
@@ -67,17 +61,16 @@ public class PacientesBean extends BasePageBean{
         return tipoIdentificacion;
     }
 
-    public void getData() throws Exception {
+    public void getData(int id, TipoIdentificacion tipo){
         try {
-            setEnfermo(serviciosPaciente.consultarPacientesPorId(id, tipoIdentificacion));
-            System.out.println(enfermo.getNombre());
-        } catch (ExcepcionServiciosSuscripciones ex) {
-            throw ex;
+            selectedPaciente = ServiciosPacientesFactory.getInstance().getForumsServices().consultarPacientesPorId(id, tipo);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public TipoIdentificacion[] getTiposIdentificacion() {
         return TipoIdentificacion.values();
     }
-
+    
 }

@@ -6,22 +6,39 @@
       xmlns:o="http://omnifaces.org/ui"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title></title>
+        <title>Pacientes</title>
     </h:head>
     <h:body>
-        <h1>TITULO</h1>
-        <h:form id="pacientes">
+        <h1>Consulta de Pacientes</h1>
+        <h:form>
             <!--Por favor no cambiar el 'id':-->
-            <p:inputText id="identificacion_paciente" value="#{mb.id}"></p:inputText>
-            <p:selectOneMenu value="#{mb.tipoIdentificacion}" >
+            <p:inputText id="identificacion_paciente" binding="#{input}"/>
+            <p:selectOneMenu value="#{mb.tipoIdentificacion}" binding="#{inputTipo}">
                 <f:selectItems value="#{mb.tiposIdentificacion}" />
             </p:selectOneMenu>
             <!--Por favor no cambiar el 'value':-->
-            <p:commandButton value="Consultar" actionListener="#{mb.getData}" update="pacientes"> </p:commandButton>
-            <br> </br>
-            <p:outputLabel  value= "Nombre : #{mb.enfermo.getNombre()}"/>
-            <br> </br>
-            <p:outputLabel  value= "Id : #{mb.enfermo.getId()}"/>
+            <p:commandButton action="#{mb.getData(input.value,inputTipo.value)}" update="consultas" value="Consultar"/>
+
+            <p:dataTable id="consultas" var="consulta" value="#{mb.getSelectedPaciente().getConsultas()}">
+                <f:facet name="header">
+                    Información del paciente
+                </f:facet>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{mb.getSelectedPaciente().getNombre()}" />
+                </p:column>
+                <p:column headerText="Fecha de Nacimiento">
+                    <h:outputText value="#{mb.getSelectedPaciente().getFechaNacimiento()}" />
+                </p:column>
+                <p:column headerText="Codigo de la Consulta">
+                    <h:outputText value="#{consulta.getId()}" />
+                </p:column>
+                <p:column headerText="Fecha de consulta">
+                    <h:outputText value="#{consulta.getFechayHora()}" />
+                </p:column>
+                <p:column headerText="Resumen de consulta">
+                    <h:outputText value="#{consulta.getResumen()}" />
+                </p:column>
+            </p:dataTable>
         </h:form>
     </h:body>
 </html>

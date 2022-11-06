@@ -12,7 +12,6 @@ import edu.eci.pdsw.samples.persistence.DaoPaciente;
 import edu.eci.pdsw.samples.persistence.PersistenceException;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosSuscripciones;
 import edu.eci.pdsw.samples.services.ServiciosPaciente;
-
 import java.util.List;
 
 /**
@@ -38,13 +37,17 @@ public class ServiciosPacienteImpl implements ServiciosPaciente {
         try {
             return daoPaciente.load(id, tipoIdentificacion);
         } catch (PersistenceException ex) {
-            throw new ExcepcionServiciosSuscripciones("Error en la consulta:" + ex.getLocalizedMessage(), ex);
+            throw new ExcepcionServiciosSuscripciones("Error al realizar la consulta:"+ex.getLocalizedMessage(), ex);
         }
     }
 
     @Override
-    public List<Paciente> consultarMenoresConEnfermedadContagiosa() throws ExcepcionServiciosSuscripciones {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Paciente> consultarMenoresEnfermos() throws ExcepcionServiciosSuscripciones {
+        try {
+            return daoPaciente.loadEnfermos();
+        } catch (PersistenceException ex) {
+            throw new ExcepcionServiciosSuscripciones("Error al realizar la consulta:"+ex.getLocalizedMessage(), ex);
+        }
     }
 
 

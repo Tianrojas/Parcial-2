@@ -5,6 +5,7 @@
  */
 package edu.eci.pdsw.samples.services;
 
+import org.apache.log4j.BasicConfigurator;
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 
@@ -13,6 +14,11 @@ import com.google.inject.Injector;
 import edu.eci.pdsw.samples.persistence.DaoPaciente;
 import edu.eci.pdsw.samples.persistence.mybatisimpl.MyBatisDAOPaciente;
 import edu.eci.pdsw.samples.services.impl.ServiciosPacienteImpl;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -67,7 +73,7 @@ public class ServiciosPacientesFactory {
         return instance;
     }
 
-    public static void main(String a[]) throws ExcepcionServiciosSuscripciones {
+    public static void main(String[] a) throws ExcepcionServiciosSuscripciones, SQLException {
         System.out.println(ServiciosPacientesFactory.getInstance().getForumsServices().consultarPacientes());
     }
 

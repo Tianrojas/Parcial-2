@@ -21,17 +21,17 @@ import edu.eci.pdsw.samples.entities.Consulta;
 import edu.eci.pdsw.samples.entities.TipoIdentificacion;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosSuscripciones;
 import edu.eci.pdsw.samples.services.ServiciosPacientesFactory;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-import java.sql.Date;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -59,16 +59,19 @@ public class ServicesJUnitTest {
     /**
      * Obtiene una conexion a la base de datos de prueba
      * @return
-     * @throws SQLException
+     * @throws SQLException 
      */
     private Connection getConnection() throws SQLException{
         return DriverManager.getConnection("jdbc:h2:file:./target/db/testdb;MODE=MYSQL", "anonymous", "anonymous");
     }
-
+    
     @Test
     public void dadoUnPacienteCuandoSeConsultaDeberiaObtenerseSusDatos() throws SQLException, ExcepcionServiciosSuscripciones {
         //Insertar datos en la base de datos de pruebas, de acuerdo con la clase
         //de equivalencia correspondiente
+
+        // ARRANGE
+        clearDB();
         Connection conn=getConnection();
         Statement stmt=conn.createStatement();
 
@@ -79,13 +82,12 @@ public class ServicesJUnitTest {
         conn.close();
 
         //Realizar la operacion de la logica y la prueba
-
         Paciente paciente = ServiciosPacientesFactory.getInstance().getTestingForumServices().consultarPacientesPorId(9876, TipoIdentificacion.TI);
         //assert ...
         Assert.assertEquals(paciente.getNombre(), "Carmenzo");
         Assert.assertEquals(paciente.getFechaNacimiento(),Date.valueOf("1995-07-10") );
-
-    }
-
+        
+    }    
+    
 
 }
